@@ -12,11 +12,10 @@ struct PokemonImageView: View {
 
     var body: some View {
         ZStack {
-            //TODO: Adicionar um background?
-//            Image(.pokemonBg)
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//                .opacity(0.3)
+            Image(.pokemonBg)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .opacity(0.3)
             ImageView(withURL: imageURL)
                 .aspectRatio(contentMode: .fit)
         }

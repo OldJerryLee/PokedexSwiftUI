@@ -14,6 +14,14 @@ struct PokemonListView: View {
         GridItem(.adaptive(minimum: 100, maximum: 500))
     ]
     @State private var isLoading = true
+    @State private var searchText = ""
+    
+    var filteredPokemon: [PokemonModel] {
+        if searchText == "" { return viewModel.pokemonList }
+        return viewModel.pokemonList.filter { $0.name.lowercased().contains(searchText.lowercased()) ||
+            $0.id == Int(searchText)
+        }
+    }
 
     @StateObject var viewModel: PokemonListViewModel = .init()
 
@@ -21,9 +29,8 @@ struct PokemonListView: View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: columns, content: {
-                    ForEach(viewModel.pokemonList, id: \.self) { pokemon in
+                    ForEach(filteredPokemon, id: \.self) { pokemon in
                         NavigationLink {
-                            //PokemonDetailView(id: pokemon.id)
                             PokemonDetailView()
                         } label: {
                             PokemonCardView(pokemon: pokemon)
@@ -34,15 +41,6 @@ struct PokemonListView: View {
                                 }
                         }
                     }
-
-//                    else {
-//                        Color.clear
-//                            .onAppear {
-//                                if !viewModel.pokemonList.isEmpty {
-//                                    viewModel.getPokemonData()
-//                                }
-//                            }
-//                    }
                 })
                 if isLoading {
                     ProgressView()
@@ -51,6 +49,7 @@ struct PokemonListView: View {
             .padding(.horizontal, 5)
             .navigationTitle("Pokemon")
             .navigationBarTitleDisplayMode(.large)
+            .searchable(text: $searchText)
             .onAppear {
                 handleState()
                 viewModel.getPokemonData()

@@ -16,9 +16,7 @@ protocol PokemonModelProtocol {
 struct PokemonModel: PokemonModelProtocol {
 
     // MARK: - Computed Properties
-
     var id: Int {
-        
         PokemonNumberGenerator.generate(from: pokemonData.url?.absoluteString ?? "" )
     }
 
@@ -31,11 +29,9 @@ struct PokemonModel: PokemonModelProtocol {
     }
 
     // MARK: - Private Properties
-
     private let pokemonData: NamedURLResource
 
     // MARK: - Initialization
-
     init(_ pokemonData: NamedURLResource) {
         self.pokemonData = pokemonData
     }

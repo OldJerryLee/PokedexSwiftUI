@@ -21,11 +21,11 @@ struct PokemonCardView: View {
                 .font(.title2)
                 .minimumScaleFactor(0.5)
                 .foregroundStyle(Color.primary)
-                .padding(.bottom, 10)
+                .padding(.bottom, 16)
         }
         .frame(maxWidth: .infinity, maxHeight: 300)
         .background(
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 12)
                 .fill(Color.teal.opacity(0.3))
         )
     }
